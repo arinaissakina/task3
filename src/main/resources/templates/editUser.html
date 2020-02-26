@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main.html">
+<div layout:fragment = "contentPart">
+    <div class="col-md-5">
+        <h2>
+            User: <span th:text = "${user.email}"></span>
+        </h2>
+        <h3>
+            Role(s): <span th:each = "r : ${user.roles}">
+                        <span th:text = "${r.role}"></span>
+                    </span>
+        </h3>
+        <form th:action = "@{'/updatePassword/'+${user.id}}" method="post">
+            <div class="form-group">
+                <label>Old Password</label>
+                <input type="password" class="form-control" name = "old_pass">
+            </div>
+            <div class="form-group">
+                <label>New Password</label>
+                <input type="password" class="form-control" name="password">
+            </div>
+            <div class="form-group">
+                <label>Re-Password</label>
+                <input type="password" class="form-control" name = "re_password">
+            </div>
+            <button type="submit" class="btn btn-info" style="background-color: crimson; border-color: crimson;">Update Password</button>
+        </form>
+        <br>
+            <form th:action = "@{'/updateRoles/'+${user.id}}" method="post">
+            <div class="form-group">
+                <div class="form-check" th:each = "item : ${roles}">
+                    <input  th:value="${item.id}" class="form-check-input"
+                            type="checkbox" th:id="${item.id}" name="role_id">
+                    <label class="form-check-label" th:for="${item.id}" th:text = "${item.role}">
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info" style="background-color: crimson; border-color: crimson;">Update Roles</button>
+        </form>
+    </div>
+</div>
+</html>

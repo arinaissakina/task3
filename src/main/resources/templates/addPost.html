@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+             xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+             layout:decorator="layouts/main.html">
+<div layout:fragment = "contentPart">
+    <div class="col-md-7">
+        <h3>Add Post</h3>
+        <form action="/addNewPost" method="post">
+            <input type="text" class="form-control" placeholder="Title" name="title">
+            <br>
+            <textarea type="number" class="form-control" placeholder="Short Content" name="sContent"></textarea>
+            <br>
+            <textarea type="number" class="form-control" placeholder="Content" name="content"></textarea>
+            <br>
+            <button type="submit" class="btn btn-info" style="background-color: crimson; border-color: crimson;">Add Post</button>
+        </form>
+    </div>
+</div>
+</html>

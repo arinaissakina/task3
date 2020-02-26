@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main.html">
+<div layout:fragment = "contentPart">
+    <div class="col-md-7">
+        <h3>Edit Post</h3>
+        <form th:action = "@{'/savePost/'+${post.id}}" method="post">
+            <input type="text" class="form-control" th:value = "${post.title}" name="title">
+            <br>
+            <textarea type="number" class="form-control" th:text = "${post.shortContent}" name="sContent"></textarea>
+            <br>
+            <textarea type="number" class="form-control" th:text = "${post.content}" name="content"></textarea>
+            <br>
+            <button type="submit" class="btn btn-info" style="background-color: crimson; border-color: crimson;">Save Changes</button>
+        </form>
+    </div>
+</div>
+</html>

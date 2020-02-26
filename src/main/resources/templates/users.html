@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main.html">
+<div layout:fragment = "contentPart">
+    <div class="col-md-10">
+        <h3>Users</h3>
+        <table class="table table-striped" style="table-layout: fixed;">
+            <thead>
+            <tr align="center">
+                <th scope="col" width="10%">ID</th>
+                <th scope="col">email</th>
+                <th scope="col">Full name</th>
+                <th scope="col">Role(s)</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each = "item : ${users}" align="center">
+                <th scope="row" th:text = "${item.id}"></th>
+                <td th:text = "${item.email}"></td>
+                <td th:text = "${item.fullName}"></td>
+                <td>
+                    <span th:each = "r : ${item.roles}">
+                        <span th:text = "${r.role}"></span>
+                    </span>
+                </td>
+                <td th:text="${item.isActive} ? 'ACTIVE' : 'BLOCKED'"></td>
+                <td>
+                    <a th:if="${item.isActive}"
+                       th:href = "@{'/blockUser/'+${item.id}}"
+                       class="card-link btn btn-info btn-sm"
+                       style="background-color: crimson; border-color: crimson; width: 70px;">Block</a>
+                    <a th:unless="${item.isActive}"
+                       th:href = "@{'/activateUser/'+${item.id}}"
+                       class="card-link btn btn-info btn-sm"
+                       style="background-color: mediumseagreen; border-color: mediumseagreen; width: 70px;">Activate</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</html>

@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorator="layouts/main.html">
+<div layout:fragment = "contentPart">
+    <div class="col-md-7">
+        <div class="card" style="width: 40rem;">
+            <div class="card-body">
+                <h3 class="card-title" th:text = "${post.title}"></h3>
+                <h6 class="card-subtitle mb-2 text-muted" th:text = "${post.date}" ></h6>
+                <p class="card-text" th:text = "${post.content}"></p>
+                <a th:href = "@{'/deletePost/'+${post.id}}" class="card-link btn btn-info btn-sm"
+                   style="background-color: crimson; border-color: crimson; width: 60px;"
+                   sec:authorize="hasRole('ROLE_MODERATOR')">Delete</a>
+                <a th:href = "@{'/editPost/'+${post.id}}" class="card-link btn btn-info btn-sm"
+                   style="background-color: crimson; border-color: crimson; width: 60px;"
+                   sec:authorize="hasRole('ROLE_MODERATOR')">Edit</a>
+                <br>
+            </div>
+        </div>
+        <br>
+        <br>
+        <h4>Comments</h4>
+        <div style="width: 30rem;">
+        <form th:action = "@{'/addComment/'+${post.id}}" method="post">
+            <div class="form-row">
+                <div class="col">
+                    <textarea type="number" class="form-control" placeholder="..." name="content"></textarea>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-light" style="background-color: lightpink;">Leave Comment</button>
+                </div>
+            </div>
+            <br>
+        </form>
+            <div class="card" style="width: 30rem;" th:each = "item : ${comments}">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted" th:text = "${item.author.fullName} + ', ' +${item.date}" ></h6>
+                    <p class="card-text" th:text = "${item.content}"></p>
+                    <a th:href = "@{'/deleteComment/'+${item.id}}" class="card-link btn btn-info btn-sm"
+                       style="background-color: crimson; border-color: crimson;"
+                       sec:authorize="hasRole('ROLE_MODERATOR')">Delete</a>
+                    <a th:href = "@{'/deleteComment/'+${item.id}}" class="card-link btn btn-light btn-sm"
+                       style="background-color: white; border-color: crimson; color: crimson;"
+                       sec:authorize="isAuthenticated()"
+                       th:if = "${item.author.id == user.id}">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
